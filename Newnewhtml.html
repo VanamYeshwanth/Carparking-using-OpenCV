@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Car Parking using CV</title>
+</head>
+<body>
+  <h1>Car Parking using CV</h1>
+  <video id="C:\Users\V YESHWANTH\Downloads\carPark.mp4" width="640" height="480" autoplay></video>
+  <canvas id="C:\Users\V YESHWANTH\Downloads\wallpaperflare.com_wallpaper (3).jpg" width="640" height="480"></canvas>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    async function startCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
+        video.srcObject = stream;
+      } catch (err) {
+        console.error('Error accessing the webcam:', err);
+      }
+    }
+
+    function processFrame() {
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imageData = canvas.toDataURL('image/jpeg');
+      
+      requestAnimationFrame(processFrame);
+    }
+
+    window.onload = () => {
+      startCamera();
+      processFrame();
+    };
+  </script>
+</body>
+</html>
